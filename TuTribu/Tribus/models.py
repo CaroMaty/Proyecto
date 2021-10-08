@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models.fields import CharField, IntegerField
+from django.db.models import base
 
 
 # Create your models here.
@@ -16,7 +17,7 @@ class Post(models.Model):
     postTitulo = models.TextField(null=True, blank=True)
     postDescripcion = models.TextField()
     postImagen = models.ImageField(null=True, blank=True)
-    postTribu = models.ForeignKey(Tribu, on_delete=models.CASCADE)
+    #postTribu = models.ForeignKey(Tribu, on_delete=models.CASCADE)
     numLikes = models.IntegerField(default=0)
     numDislikes = models.IntegerField(default=0)
     numLoves = models.IntegerField(default=0)
@@ -33,18 +34,18 @@ class Reaccion(models.Model):
     imagen = models.ImageField()
 
     def __str__(self):
-        return self.Accion
+        return self.accion
 
 class ReaccionPost(models.Model):
-    reaccion = models.ForeignKey(Reaccion, on_delete=models.SET_NULL, null=True)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    #reaccion = models.ForeignKey(Reaccion, on_delete=models.SET_NULL, null=True)
+    #post = models.ForeignKey(Post, on_delete=models.CASCADE)
     numLikes = models.IntegerField(default=0)
     numDislikes = models.IntegerField(default=0)
     numLoves = models.IntegerField(default=0)
     numHates = models.IntegerField(default = 0)
 
-    def __str__(self):
-        return self.reaccion
+    #def __str__(self):
+        #return self.reaccion
 
     def numLikes(self):
         self.numLikes +=1
@@ -63,11 +64,29 @@ class ReaccionPost(models.Model):
         self.save()
 
 
-class Comentarios(models.Model):
-    pass
+class Comentario(models.Model):
+    usuario = models.CharField(max_length=100)
+    idPost = models.IntegerField(default=0)
+    fecha = models.DateField(auto_now_add=True)
+    #post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    contenido = models.TextField()
 
-class Eventos(models.Model):
-    pass
+    def __str__(self):
+        return self.idPost
+
+class Evento(models.Model):
+    nuevo_Evento = models.CharField(max_length=100)
+    definir_Evento = models.CharField(max_length=200)
+    fecha_Evento = models.DateField()
+    horas_evento= models.TimeField(null=True, blank=True)
+    costo = models.FloatField(default=0)
+    añadir_comentarios = models.TextField(max_length=200)
+    localizacion_Evento = models.CharField(max_length=200)
+    imagen_Evento = models.ImageField(null=True, blank=True)
+    archivoInfo = models.FileField(null=True, blank=True)
+    
+    def __str__(self):
+        return self.nuevo_Evento
 
 class Locacion(models.Model):
     pass

@@ -24,3 +24,13 @@ class ReaccionPostSerial(serializers.ModelSerializer):
     class Meta:
         model = ReaccionPost
         fields = '__all__'
+
+class ComentarioSerial(serializers.ModelSerializer):
+    class Meta:
+        model = Comentario
+        fields = '__all__'
+
+class EventoSerial(serializers.ModelSerializer):
+    class Meta:
+        model = Evento
+        fields = '__all__'
